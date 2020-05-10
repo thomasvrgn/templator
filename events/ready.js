@@ -4,15 +4,20 @@ export default {
 
     run: class {
 
-        constructor (client) {
+        constructor () {}
 
-            this.client = client
+        async event (client) {
 
-        }
+            setInterval(() => {
+                const status = statuses[Math.floor(Math.random() * statuses.length)]
+                client.user.setActivity(status, {
+                    type: 'PLAYING'
+                });
+            }, 5000)
 
-        event () {
-
-            console.log('EHEH')
+            const statuses = [
+                't!help'
+            ]
 
         }
 
