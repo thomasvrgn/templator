@@ -7,8 +7,9 @@ import FS      from 'fs'
 import ENV     from 'dotenv'
 import PATH    from 'path'
 
-const CONFIG = ENV.config().parsed,
-      client = new Discord.Client()
+const CONFIG          = ENV.config().parsed,
+      client          = new Discord.Client()
+      client.commands = new Discord.Collection()
 
 FS.exists(PATH.resolve(PATH.join(__dirname, 'commands')), stats => {
     
@@ -30,10 +31,8 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'commands')), stats => {
                 if (!name) name = content[file].split('.')[0]
                 if (!desc) desc = 'Some description'  
                 if (!EXEC) throw new Error ('Command', name, 'does not have runnable code!')
-                
-                console.log(EXEC)
 
-                console.log(name, desc, typeof COMMAND.run)
+                client.commands.set(name, COMMAND)
             })
 
         }
