@@ -6,6 +6,7 @@
   "dependencies": {
     "babel-node": "0.0.1-security",
     "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
     "sqlite3": "^4.2.0"
   },
   "scripts": {
