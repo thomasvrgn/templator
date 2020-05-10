@@ -1,0 +1,30 @@
+{
+  "name": "templator",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "babel-node": "0.0.1-security",
+    "discord.js": "^11.5.1",
+    "sqlite3": "^4.2.0"
+  },
+  "scripts": {
+    "start": "nodemon --exec babel-node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NessMC/templator.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NessMC/templator/issues"
+  },
+  "homepage": "https://github.com/NessMC/templator#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6"
+  }
+}
