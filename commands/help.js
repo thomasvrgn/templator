@@ -1,4 +1,5 @@
 import Discord from 'discord.js'
+import Config  from '../config'
 
 export default {
 
@@ -18,15 +19,13 @@ export default {
         }
 
         command () {
-            const embed = new Discord.RichEmbed().setTitle('Page d\'aide')
-                                                 .setDescription('Affiche la page d\'aide du bot')
+            const embed = new Discord.RichEmbed()
                                                  .setFooter('Demandé par ' + this.message.author)
                                                  .setAuthor(this.client.user.username + '#' + this.client.user.discriminator)
-            if (this.args) {
+            if (this.args.length > 0) {
 
-                console.log(this.client.commands.get(this.args[0]))
 
-                const COMMAND = command[1]
+                const COMMAND = this.client.commands.get(this.args[0])
                 let   name    = COMMAND.name,
                       element = COMMAND.description.split(':').map(x => x.trim()),
                       desc    = element[0],
@@ -36,9 +35,14 @@ export default {
                 if (!desc) desc = 'Aucune description pour cette commande.'
                 if (!cmd)  cmd  = 'Aucune commande.'
 
+                embed.setTitle('Page d\'aide')
+                     .setDescription('Commande cherchée : ' + Config.prefix + name)
+
                 embed.addField(`t!${name}`, desc + '\n```' + cmd + '```', true)
 
             } else {
+                embed.setTitle('Page d\'aide')
+                     .setDescription('Affiche la page d\'aide du bot')
                 for (const command of this.client.commands) {
                     const COMMAND = command[1]
                     let   name    = COMMAND.name
