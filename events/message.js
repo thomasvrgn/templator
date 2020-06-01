@@ -1,5 +1,7 @@
 import Config from '../config'
 
+let cooldown = Date.now()
+
 export default {
     name: 'message',
 
@@ -8,23 +10,28 @@ export default {
         constructor () {}
 
         async event (client, message) {
-
             if (message.author.bot) return
             if (!message.content) return
 
             const destructured      = message.content.split(' '),
-                  command           = destructured.shift()
+                command           = destructured.shift()
 
             if (!command.startsWith(Config.prefix)) return
 
             const command_no_prefix = command.slice(Config.prefix.length, command.length).toLowerCase(),
-                  bot_cmd           = client.commands.get(command_no_prefix)
+                bot_cmd           = client.commands.get(command_no_prefix)
 
             if (!bot_cmd) return
-
             const cmd = new bot_cmd.run(client, message, destructured.slice(0))
 
-            cmd.command()
+            if (cooldown - Date.now() > 0) {
+                const date      = Math.round((cooldown - Date.now()).toString().slice(0, 1))
+                const remaining = date > 1 ? date + ' secondes' : date + ' seconde'
+                message.channel.send(`Vous pourrez de nouveau effectuer cette commande dans ${remaining}.`)
+            } else {
+                cooldown = Date.now() + Config.cooldown
+                cmd.command()
+            }
             
 
         } 

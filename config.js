@@ -1,5 +1,6 @@
 export default {
 
-    prefix: 't!'
+    prefix   : 't!',
+    cooldown : 5000
 
 }
