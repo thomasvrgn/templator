@@ -33,6 +33,7 @@ export default {
                 if (!cmd)  cmd  = 'Aucune commande.'
                 
                 embed.addField(`t!${name}`, desc + '\n```' + cmd + '```', true)
+                embed.addBlankField(true)
             }
 
             this.message.channel.send(embed)
