@@ -1,4 +1,6 @@
 import Discord from 'discord.js'
+import FS      from 'fs'
+import PATH    from 'path'
 
 export default {
 
@@ -64,7 +66,12 @@ export default {
                     mentionable : informations.mentionable
                 })
             }
-            console.log(this.template)
+            FS.exists(PATH.resolve('templates'), bool => {
+                if (!bool) return
+                FS.writeFile(PATH.resolve(PATH.join('templates', (([...this.args[0]].map(x => x.charCodeAt()).reduce((acc, cur) => acc + cur) << 19).toString(36)) + '.js')), 'module.exports=' + JSON.stringify(this.template) + '', error => {
+                    if (error) throw error
+                })
+            })
 
         }
 
