@@ -10,7 +10,7 @@
     "sqlite3": "^4.2.0"
   },
   "scripts": {
-    "start": "nodemon --exec babel-node index.js",
+    "start": "nodemon --exec node_modules/.bin/babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
