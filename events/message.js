@@ -25,7 +25,8 @@ export default {
             const cmd = new bot_cmd.run(client, message, destructured.slice(0))
 
             if (cooldown - Date.now() > 0) {
-                const date      = Math.round((cooldown - Date.now()).toString().slice(0, 1))
+                
+                const date      = ((cooldown - Date.now() )/ 1000).toFixed(1)
                 const remaining = date > 1 ? date + ' secondes' : date + ' seconde'
                 message.channel.send(`Vous pourrez de nouveau effectuer cette commande dans ${remaining}.`)
             } else {
