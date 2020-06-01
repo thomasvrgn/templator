@@ -26,13 +26,14 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'commands')), stats => {
                       EXEC      = new COMMAND.run()
 
                 let   name      = COMMAND.name,
-                      desc      = COMMAND.description
+                      desc      = COMMAND.description,
+                      category  = COMMAND.category
 
                 if (!name) name = content[file].split('.')[0]
                 if (!desc) desc = 'Some description'  
                 if (!EXEC) throw new Error ('Command', name, 'does not have runnable code!')
 
-                client.commands.set(name, COMMAND)
+                client.commands.set(name, COMMAND, category)
             })
 
         }

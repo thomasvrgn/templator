@@ -4,10 +4,11 @@ import PATH    from 'path'
 
 export default {
 
-    name: 'add',
-    description: 'Générer puis enregistrer le template : t!add <nom>',
+    name        : 'add',
+    description : 'Générer puis enregistrer le template : t!add <nom>',
+    category    : 'Fun',
 
-    run: class {
+    run         : class {
 
         constructor (client, message, args) {
 

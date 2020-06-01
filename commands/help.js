@@ -2,16 +2,18 @@ import Discord from 'discord.js'
 
 export default {
 
-    name: 'help',
-    description: 'Affiche la page d\'aide du bot : t!help',
+    name        : 'help',
+    description : 'Affiche la page d\'aide du bot : t!help',
+    category    : 'Fun',
 
-    run: class {
+    run         : class {
 
         constructor (client, message, args) {
 
-            this.client  = client
-            this.message = message
-            this.args    = args
+            this.client     = client
+            this.message    = message
+            this.args       = args,
+            this.categories = {}
 
         }
 
@@ -31,8 +33,12 @@ export default {
                 if (!name) name = content[file].split('.')[0]
                 if (!desc) desc = 'Aucune description pour cette commande.'
                 if (!cmd)  cmd  = 'Aucune commande.'
-                
-                embed.addField(`t!${name}`, desc + '\n```' + cmd + '```', true)
+                if (!this.categories[COMMAND.category]) this.categories[COMMAND.category] = []
+                this.categories[COMMAND.category].push(name)
+            }
+            
+            for (const category in this.categories) {
+                embed.addField('• ' + category + ' : ' + (this.categories[category].length > 1 ? this.categories[category].length + ' commandes' : this.categories[category].length + ' commande'), this.categories[category].map(x => '```' + x + '```').join(' '))
             }
 
             this.message.channel.send(embed)
