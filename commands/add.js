@@ -53,7 +53,18 @@ export default {
                     }
                 }
             }
-            // console.log(this.template)
+            for (const role of this.message.guild.roles) {
+                const informations = role[1]
+                this.template.roles.push({
+                    name        : informations.name,
+                    id          : informations.id,
+                    color       : informations.color,
+                    position    : informations.position,
+                    permissions : informations.permissions,
+                    mentionable : informations.mentionable
+                })
+            }
+            console.log(this.template)
 
         }
 
