@@ -34,7 +34,7 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'commands')), stats => {
 
                 if (!name) name = content[file].split('.')[0]
                 if (!desc) desc = 'Some description'  
-                if (!EXEC) console.log(CHALK.bgRed.bold(' ERROR '), 'Command', CHALK.grey.bold(name), 'does not have runnable code.')
+                if (!EXEC) return console.log(CHALK.bgRed.bold(' ERROR '), 'Command', CHALK.grey.bold(name), 'does not have runnable code.')
                 console.log(CHALK.bgBlue.bold(' LOADED '), 'Command', CHALK.grey.bold(name), 'has been loaded.')
 
                 // client.commands.set(name, COMMAND, category)
@@ -61,7 +61,7 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'events')), stats => {
                 let   name      = EVENT.name
 
                 if (!name) name = content[file].split('.')[0]
-                if (!EVENT.run) console.log(CHALK.bgRed.bold(' ERROR '), 'Event', CHALK.grey.bold(name), 'does not have runnable code.')
+                if (!EVENT.run) return onsole.log(CHALK.bgRed.bold(' ERROR '), 'Event', CHALK.grey.bold(name), 'does not have runnable code.')
                 console.log(CHALK.bgGreen.grey.bold(' LOADED '), 'Event', CHALK.grey.bold(name), 'has been loaded.')
                 // client.on(name, EXEC.event.bind(null, client))
             })
