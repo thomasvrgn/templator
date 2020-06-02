@@ -9,7 +9,8 @@
     "chalk": "^4.0.0",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "figlet": "^1.4.0"
+    "figlet": "^1.4.0",
+    "fs-extra": "^9.0.0"
   },
   "scripts": {
     "start": "nodemon --exec npx babel-node index.js",
