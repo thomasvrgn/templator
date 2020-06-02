@@ -1,3 +1,5 @@
+# You may not remove one of these lines!
+
 node_modules
 .env
 package-lock.json
