@@ -6,6 +6,9 @@ import Discord from 'discord.js'
 import FS      from 'fs'
 import ENV     from 'dotenv'
 import PATH    from 'path'
+import CHALK   from 'chalk'
+import FIGLET  from 'figlet'
+import BOXEN   from 'boxen'
 
 const CONFIG          = ENV.config().parsed,
       client          = new Discord.Client()
@@ -31,9 +34,10 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'commands')), stats => {
 
                 if (!name) name = content[file].split('.')[0]
                 if (!desc) desc = 'Some description'  
-                if (!EXEC) throw new Error ('Command', name, 'does not have runnable code!')
+                if (!EXEC) console.log(CHALK.bgRed.bold(' ERROR '), 'Command', CHALK.grey.bold(name), 'does not have runnable code.')
+                console.log(CHALK.bgBlue.bold(' LOADED '), 'Command', CHALK.grey.bold(name), 'has been loaded.')
 
-                client.commands.set(name, COMMAND, category)
+                // client.commands.set(name, COMMAND, category)
             })
 
         }
@@ -57,8 +61,9 @@ FS.exists(PATH.resolve(PATH.join(__dirname, 'events')), stats => {
                 let   name      = EVENT.name
 
                 if (!name) name = content[file].split('.')[0]
-                if (!EVENT.run) throw new Error ('Event ' + name + ' does not have runnable code!')
-                client.on(name, EXEC.event.bind(null, client))
+                if (!EVENT.run) console.log(CHALK.bgRed.bold(' ERROR '), 'Event', CHALK.grey.bold(name), 'does not have runnable code.')
+                console.log(CHALK.bgGreen.grey.bold(' LOADED '), 'Event', CHALK.grey.bold(name), 'has been loaded.')
+                // client.on(name, EXEC.event.bind(null, client))
             })
 
         }

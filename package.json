@@ -5,8 +5,11 @@
   "main": "index.js",
   "dependencies": {
     "babel-node": "0.0.1-security",
+    "boxen": "^4.2.0",
+    "chalk": "^4.0.0",
     "discord.js": "^11.5.1",
-    "dotenv": "^8.2.0"
+    "dotenv": "^8.2.0",
+    "figlet": "^1.4.0"
   },
   "scripts": {
     "start": "nodemon --exec npx babel-node index.js",
