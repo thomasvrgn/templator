@@ -20,6 +20,7 @@ class TemplatorLoader {
 
     title (callback) {
         console.log(BOXEN(CHALK.grey(FIGLET.textSync('TEMPLATOR', {font: 'Rectangles'})), {padding: 1}))
+        if (CONFIG) console.log('\n  ' + CHALK.bgCyan.grey(' SUCCESS '), 'Configuration file has been loaded.')
         callback()
     }
 
