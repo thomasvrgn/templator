@@ -76,7 +76,7 @@ class TemplatorLoader {
                                                 if (!name) name = content[file].split('.')[0]
                                                 if (!EVENT.run) return console.log('  ' + CHALK.bgRed.bold(' ERROR '), 'Event', CHALK.grey.bold(name), 'does not have runnable code.')
                                                 console.log('  ' + CHALK.bgGreen.grey.bold(' LOADED '), 'Event', CHALK.grey.bold(name), 'has been loaded.')
-                                                
+
                                                 client.on(name, EXEC.event.bind(null, client))
 
                                             }).then(() => {
@@ -104,4 +104,4 @@ class TemplatorLoader {
 
 }
 
-new TemplatorLoader().load(() => client.login(CONFIG.TOKEN))
+new TemplatorLoader().load(() => client.login(CONFIG.TOKEN).then(() => console.log('\n  ' + CHALK.bgCyan.grey(' SUCCESS '), 'Bot connected as', CHALK.hex('#aaaaaa')(client.user.username + '#' + client.user.discriminator) + '.')))
