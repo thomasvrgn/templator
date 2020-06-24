@@ -1,5 +1,4 @@
 import PATH from 'path'
-import { Permissions } from 'discord.js'
 
 export default {
 
@@ -18,31 +17,32 @@ export default {
         }
 
         command () {
-            const permissions = new Permissions(2147483647)
-            console.log(this.message.channel)
 
-            // import(PATH.resolve(PATH.join(__dirname, '..', 'templates', this.args[0]))).then(value => {
-            //     const channels = value.channels,
-            //           roles    = value.roles
+            import(PATH.resolve(PATH.join(__dirname, '..', 'templates', this.args[0]))).then(value => {
+                const channels = value.channels,
+                      roles    = value.roles
 
-            //     for (const item of channels) {
-            //         if (item.type === 'category') {
-            //             console.log('CATEGORY:', item.name)
-            //             this.message.guild.createChannel(item.name, item.type).then(category => {
-            //                 for (const channel of item.children) {
-            //                     this.message.guild.createChannel(channel.name, {
-            //                         type   : channel.type,
-            //                         parent : category.id
-            //                     })
-            //                 }
-            //             })
-            //         } else {
-            //             this.message.guild.createChannel(item.name, item.type)
-            //         }
-            //     }
-            // }).catch(error => {
-            //     this.message.channel.send('```' + error + '```')
-            // })
+                for (const item of channels) {
+                    if (item.type === 'category') {
+                        this.message.guild.createChannel(item.name, {type: item.type, permissionOverwrites : item.permissions}).then(category => {
+                            for (const channel of item.children) {
+                                this.message.guild.createChannel(channel.name, {
+                                    type                 : channel.type,
+                                    parent               : category.id,
+                                    permissionOverwrites : channel.permissions
+                                })
+                            }
+                        })
+                    } else {
+                        this.message.guild.createChannel(item.name, {
+                            type                 : item.type, 
+                            permissionOverwrites : item.permissions
+                        })
+                    }
+                }
+            }).catch(error => {
+                this.message.channel.send('```' + error + '```')
+            })
             
 
         }
