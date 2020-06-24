@@ -18,16 +18,16 @@ export default {
         }
 
         command () {
-
-            for (const role of this.message.guild.roles) {
-                this.message.guild.roles.delete(role[0])
-            }
             
+            this.message.guild.channels.forEach(channel => channel.delete())
+            this.message.guild.roles.forEach(role => {
+                if (!['@everyone', 'Templator'].includes(role.name)) {
+                    role.delete().catch(error => console.log(role))
+                }
+            })
 
         }
 
     }
 
 }
-
-

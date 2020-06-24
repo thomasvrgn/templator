@@ -24,6 +24,7 @@ export default {
                       roles    = value.roles
 
                 for (const role of roles) {
+
                     const permissions = new Permissions(role.permissions).serialize(),
                           perm_list   = Object.keys(permissions).filter((x, index) => Object.values(permissions)[index] === true)
                     if (role.name === '@everyone') {
@@ -32,12 +33,10 @@ export default {
                         this.message.guild.createRole({
                             name        : role.name,
                             color       : role.color,
-                            position    : role.position,
                             permissions : perm_list,
                             mentionable : role.mentionable
                         })
                     }
-
 
                 }
 
