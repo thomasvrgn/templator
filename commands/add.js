@@ -36,7 +36,7 @@ export default {
                         type        : informations.type,
                         id          : id,
                         channelID   : informations.id,
-                        permissions : informations.permissionOverwrites,
+                        permissions : Array.from(informations.permissionOverwrites).map(x => x[1]),
                         children    : []
                     })
 
@@ -49,7 +49,7 @@ export default {
                             type        : informations.type,
                             id          : id,
                             channelID   : informations.id,
-                            permissions : informations.permissionOverwrites
+                            permissions : Array.from(informations.permissionOverwrites).map(x => x[1])
                         })
 
                     } else {
@@ -59,7 +59,7 @@ export default {
                             type        : informations.type,
                             id          : id,
                             channelID   : informations.id,
-                            permissions : informations.permissionOverwrites
+                            permissions : Array.from(informations.permissionOverwrites).map(x => x[1])
                         })
 
                     }
@@ -84,7 +84,7 @@ export default {
             }
 
             FS.exists(PATH.resolve('templates'), bool => {
-                
+
                 if (!bool) return
 
                 FS.writeFile(PATH.resolve(PATH.join('templates', (([...this.args[0]].map(x => x.charCodeAt()).reduce((acc, cur) => acc + cur) << 19).toString(36)) + '.js')), 'module.exports=' + JSON.stringify(this.template) + '', error => {
