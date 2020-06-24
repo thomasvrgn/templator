@@ -1,4 +1,5 @@
 import PATH from 'path'
+import { Permissions } from 'discord.js'
 
 export default {
 
@@ -22,6 +23,24 @@ export default {
                 const channels = value.channels,
                       roles    = value.roles
 
+                for (const role of roles) {
+                    const permissions = new Permissions(role.permissions).serialize(),
+                          perm_list   = Object.keys(permissions).filter((x, index) => Object.values(permissions)[index] === true)
+                    if (role.name === '@everyone') {
+                        this.message.guild.defaultRole.setPermissions(perm_list)
+                    } else {
+                        this.message.guild.createRole({
+                            name        : role.name,
+                            color       : role.color,
+                            position    : role.position,
+                            permissions : perm_list,
+                            mentionable : role.mentionable
+                        })
+                    }
+
+
+                }
+
                 for (const item of channels) {
                     if (item.type === 'category') {
                         this.message.guild.createChannel(item.name, {type: item.type, permissionOverwrites : item.permissions}).then(category => {
@@ -40,6 +59,7 @@ export default {
                         })
                     }
                 }
+                
             }).catch(error => {
                 this.message.channel.send('```' + error + '```')
             })
