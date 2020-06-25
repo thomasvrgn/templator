@@ -5,7 +5,7 @@ export default {
 
     name        : 'help',
     description : 'Affiche la page d\'aide du bot : t!help',
-    category    : 'Fun',
+    category    : '• Général',
 
     run         : class {
 
@@ -20,25 +20,27 @@ export default {
 
         command () {
             const embed = new Discord.RichEmbed()
-                                                 .setFooter('Demandé par ' + this.message.author)
-                                                 .setAuthor(this.client.user.username + '#' + this.client.user.discriminator)
+                                     .setFooter('Demandé par ' + this.message.author.username, this.message.author.avatarURL)
+                                     .setAuthor(this.client.user.username, this.client.user.displayAvatarURL)
             if (this.args.length > 0) {
-
-
-                const COMMAND = this.client.commands.get(this.args[0])
-                let   name    = COMMAND.name,
-                      element = COMMAND.description.split(':').map(x => x.trim()),
-                      desc    = element[0],
-                      cmd     = element[1]
-
-                if (!name) name = content[file].split('.')[0]
-                if (!desc) desc = 'Aucune description pour cette commande.'
-                if (!cmd)  cmd  = 'Aucune commande.'
-
+                const text = this.args.length > 1 ? 'Commandes cherchées' : 'Commande cherchée'
+                this.args  = this.args.map(x => x.startsWith(Config.prefix) ? x = x.replace(Config.prefix, '') : x)
+                console.log(this.args)
                 embed.setTitle('Page d\'aide')
-                     .setDescription('Commande cherchée : ' + Config.prefix + name)
+                     .setDescription(text + ' : ' + this.args.join(', '))
+                for (const command of this.args) {
+                    const COMMAND = this.client.commands.get(command)
+                    let   name    = COMMAND.name,
+                          element = COMMAND.description.split(':').map(x => x.trim()),
+                          desc    = element[0],
+                          cmd     = element[1]
 
-                embed.addField(`t!${name}`, desc + '\n```' + cmd + '```', true)
+                    if (!name) name = 'Aucun nom pour cette commande.'
+                    if (!desc) desc = 'Aucune description pour cette commande.'
+                    if (!cmd)  cmd  = 'Aucune commande.'
+                    
+                    embed.addField(`t!${name}`, desc + '\n```' + cmd + '```', true)
+                }
 
             } else {
                 embed.setTitle('Page d\'aide')
@@ -53,7 +55,7 @@ export default {
                 }
                 
                 for (const category in this.categories) {
-                    embed.addField('• ' + category + ' : ' + (this.categories[category].length > 1 ? this.categories[category].length + ' commandes' : this.categories[category].length + ' commande'), this.categories[category].map(x => '```' + x + '```').join(' '))
+                    embed.addField(category + ' : ' + (this.categories[category].length > 1 ? this.categories[category].length + ' commandes' : this.categories[category].length + ' commande'), this.categories[category].map(x => '```' + x + '```').join(' '))
                 }
             }
 

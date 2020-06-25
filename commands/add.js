@@ -6,7 +6,7 @@ export default {
 
     name        : 'add',
     description : 'Générer puis enregistrer le template : t!add <nom>',
-    category    : 'Fun',
+    category    : '• Utilitaire',
 
     run         : class {
 
@@ -87,7 +87,7 @@ export default {
 
                 if (!bool) return
 
-                FS.writeFile(PATH.resolve(PATH.join('templates', (([...this.args[0]].map(x => x.charCodeAt()).reduce((acc, cur) => acc + cur) << 19).toString(36)) + '.js')), 'module.exports=' + JSON.stringify(this.template) + '', error => {
+                FS.writeFile(PATH.resolve(PATH.join('templates', (this.message.author.username.toLowerCase() + '-' + (([...this.args[0]].map(x => x.charCodeAt()).reduce((acc, cur) => acc + cur) << 19).toString(36)) + '.js'))), 'module.exports=' + JSON.stringify(this.template) + '', error => {
                     if (error) throw error
                 })
 

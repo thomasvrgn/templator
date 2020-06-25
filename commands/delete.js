@@ -4,8 +4,8 @@ import { Permissions } from 'discord.js'
 export default {
 
     name        : 'delete',
-    description : 'Permet de charger une template : t!load <ID>',
-    category    : 'test',
+    description : 'Permet réinitialiser le serveur : t!delete',
+    category    : '• Utilitaire',
 
     run         : class {
 

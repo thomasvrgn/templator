@@ -2,7 +2,7 @@ export default {
 
     name        : 'reload',
     description : 'Permet de reload une commande en utilisant : t!reload <nom de la commande>',
-    category    : 'test',
+    category    : '• Utilitaire',
 
     run         : class {
 
